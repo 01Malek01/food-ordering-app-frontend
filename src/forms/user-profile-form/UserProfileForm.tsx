@@ -35,34 +35,38 @@ function UserProfileForm({ isLoading, onSave, currentUser }: Props) {
   const form = useForm<UserFormData>({
     //resolver to handle stuff like validation
     resolver: zodResolver(formSchema),
-    defaultValues: currentUser,
+    defaultValues: currentUser, //auto populate the form with the current user
   });
-
+  const { handleSubmit,control } = form;
   useEffect(() => {
-    form.reset(currentUser); //rerender the form
+    form.reset(currentUser); //rerender the form when the user changes 
   }, [currentUser, form]);
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSave)}
+        onSubmit={handleSubmit(onSave)}
         className="space-y-4 bg-gray-50 rounded-lg md:p-10"
       >
         <h2 className="text-2xl font-bold">User Profile Form</h2>
         <FormDescription>Update your user profile</FormDescription>
         <FormField
-          control={form.control}
+        //tell it that it's controlled by react hook form
+          control={control}
           name="email"
+          //render the form field with a callback function that takes a destructured field prop
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
+              {/* form control  to display errors */}
               <FormControl>
+                {/* input field that's controlled by react hook form so we pass ...field as it contains info and properties about this field state like err messages or if the user accessed the field   */}
                 <Input {...field} disabled className="bg-white" />
               </FormControl>
             </FormItem>
           )}
         />
         <FormField
-          control={form.control}
+          control={control}
           name="name"
           render={({ field }) => (
             <FormItem>
@@ -77,7 +81,7 @@ function UserProfileForm({ isLoading, onSave, currentUser }: Props) {
 
         <div className="flex flex-col md:flex-row gap-4">
           <FormField
-            control={form.control}
+            control={control}
             name="addressLine1"
             render={({ field }) => (
               <FormItem>
@@ -89,21 +93,21 @@ function UserProfileForm({ isLoading, onSave, currentUser }: Props) {
               </FormItem>
             )}
           />
+         <FormField 
+         name="city"
+         control = {control}
+         render = {({field}) => (
+          <FormItem>
+            <FormLabel>City</FormLabel>
+            <FormControl>
+              <Input {...field} className="bg-white" />
+              </FormControl>
+            <FormMessage />
+          </FormItem>
+         )}
+         />
           <FormField
-            control={form.control}
-            name="city"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>City</FormLabel>
-                <FormControl>
-                  <Input {...field} className="bg-white" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
+            control={control}
             name="country"
             render={({ field }) => (
               <FormItem>

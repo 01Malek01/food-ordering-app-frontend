@@ -9,6 +9,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useGetMyUser = () => {
   const { getAccessTokenSilently } = useAuth0();
+  //getMyUserRequest is a async function that returns a promise that resolves to a User object
   const getMyUserRequest = async (): Promise<User> => {
     const accessToken = await getAccessTokenSilently();
     const res = await fetch(`${API_BASE_URL}/api/my/user`, {
@@ -25,6 +26,7 @@ export const useGetMyUser = () => {
   };
   //destructuring the stuff we get from react query hook
   const {
+    //we named the data coming from the getMyUserRequest function as currentUser
     data: currentUser,
     isLoading,
     error,
@@ -110,7 +112,7 @@ export const useUpdateMyUser = () => {
   }
   if (error) {
     toast.error(error?.toString());
-    reset(); //clears the error state
+    reset(); //clears the error state from the page so it doesn't stay when the component rerenders
   }
   //return things we exposing so we can use them in our components
   return {
@@ -118,3 +120,4 @@ export const useUpdateMyUser = () => {
     isLoading,
   };
 };
+

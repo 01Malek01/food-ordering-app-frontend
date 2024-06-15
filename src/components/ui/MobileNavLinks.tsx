@@ -12,7 +12,16 @@ export default function MobileNavLinks() {
       >
         Profile
       </Link>
-      <Button onClick={() => logout()} className="flex px-3 items-center font-bold  hover:bg-gray-500">
+      <Link
+        className="flex bg-white font-bold hover:text-orange-500"
+        to="/manage-restaurant"
+      >
+        Manage Restaurant
+      </Link>
+      <Button
+        onClick={() => logout()}
+        className="flex px-3 items-center font-bold  hover:bg-gray-500"
+      >
         Logout
       </Button>
     </div>
