@@ -12,7 +12,7 @@ import { useFormContext } from "react-hook-form";
 export default function ImageSection() {
   const { control, setValue, watch } = useFormContext();
   const existingImageUrl = watch("imageUrl");
-  const handleFileChange = (e) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setValue("imageFile", e.target.files[0]);
     }
@@ -39,7 +39,7 @@ export default function ImageSection() {
         <FormField
           control={control}
           name="imageFile"
-          render={({ field }) => (
+          render={() => (
             <FormItem>
               <FormControl>
                 <Input
