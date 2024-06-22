@@ -25,4 +25,13 @@ export type MenuItem = {
   _id: string;
   name: string;
   price: number;
-}
+};
+
+export type RestaurantSearchResponse = {
+  data: Restaurant[];
+  pagination: {
+    total: number;
+    page: number;
+    pages: number;
+  };
+};
