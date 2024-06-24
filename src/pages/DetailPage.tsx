@@ -9,7 +9,7 @@ import OrderSummary from "@/components/OrderSummary";
 import { MenuItem as MenuItemType } from "@/types";
 import CheckoutButton from "@/components/CheckoutButton";
 import { UserFormData } from "@/forms/user-profile-form/UserProfileForm";
-import { useCreateCheckoutSession } from "@/api/OredrApi";
+import { useCreateCheckoutSession } from "@/api/OrderApi";
 
 export type CartItem = {
   _id: string;
