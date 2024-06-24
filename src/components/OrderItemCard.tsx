@@ -24,7 +24,7 @@ export default function OrderItemCard({ order }: Props) {
   useEffect(() => {
     setStatus(order.status);
   },[order.status])
-  const onChange = async (value: string) => {
+  const onChange = async (value: OrderStatus) => {
     await updateOrderStatus({ orderId: order._id as string, status: value });
     setStatus(value);
   };
@@ -45,7 +45,7 @@ export default function OrderItemCard({ order }: Props) {
           <CardTitle className="grid md:grid-cols-4 justify-between mb-3 gap-4">
             <div>
               Customer Name :
-              <span className="ml-2 font-normal">{order.user.name}</span>
+              <span className="ml-2 font-normal">{order.deliveryDetails.name}</span>
             </div>
             <div>
               Delivery Address :

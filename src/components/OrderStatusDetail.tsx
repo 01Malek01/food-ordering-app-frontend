@@ -1,6 +1,5 @@
 import { Order } from "@/types";
 import { Separator } from "@radix-ui/react-separator";
-import React from "react";
 
 type Props = {
   order: Order;

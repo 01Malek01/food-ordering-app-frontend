@@ -13,7 +13,7 @@ export default function ManageRestaurantPage() {
   const { myRestaurant } = useGetMyRestaurant();
   const { updateRestaurant, isLoading: isUpdateLoading } =
     useUpdateMyRestaurant();
-  const { orders, isLoading: isOrdersLoading } = useGetMyOrders();
+  const { orders  } = useGetMyOrders();
   //the !! means give me the truthy value
   const isEditing = !!myRestaurant; //this will return true if restaurant is not null
   return (

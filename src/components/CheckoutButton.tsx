@@ -4,7 +4,6 @@ import { Button } from "./ui/button";
 import LoadingButton from "./LoadingButton";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -12,7 +11,6 @@ import UserProfileForm, {
   UserFormData,
 } from "@/forms/user-profile-form/UserProfileForm";
 import { useGetMyUser } from "@/api/MyUserApi";
-import { X } from "lucide-react";
 
 type Props = {
   onCheckout: (userFormData: UserFormData) => void;

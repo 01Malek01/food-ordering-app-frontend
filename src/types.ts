@@ -39,7 +39,7 @@ export type RestaurantSearchResponse = {
 export type Order = {
   _id: string;
   user: string;
-  restaurant: string;
+  restaurant: Restaurant;
   cartItems: {
     menuItemId: string;
     quantity: number;
