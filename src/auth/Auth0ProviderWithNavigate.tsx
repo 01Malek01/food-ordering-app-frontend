@@ -2,7 +2,7 @@
 //here we type the code that uses the SDK (software development kit) to connect to our auth0 account
 //we moved the token logic to another file instead of putting it in the onRedirectCallback function as the onRedirectCallback function is outside the provider and don't have access to the auth0 hook
 import React from "react";
-import {  Auth0Provider } from "@auth0/auth0-react";
+import {  AppState, Auth0Provider } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -21,8 +21,8 @@ function Auth0ProviderWithNavigate({ children }: Props) {
   }
   //the appState is going to contain some stored data that we might need when the user gets redirected back to our app after the login
   // hte user variable contains some information about the user like id and email address
-  const onRedirectCallback = () => {
-   navigate('/auth-callback')
+  const onRedirectCallback = (appState?:AppState) => {
+   navigate(appState?.returnTo || '/auth-callback')
   };
   return (
     <Auth0Provider

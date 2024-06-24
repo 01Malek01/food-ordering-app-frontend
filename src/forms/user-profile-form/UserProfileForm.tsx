@@ -24,22 +24,30 @@ const formSchema = z.object({
   country: z.string().min(1, "Name is required"),
 });
 
-type UserFormData = z.infer<typeof formSchema>; //let the zod library detect the properties and types of the object
+export type UserFormData = z.infer<typeof formSchema>; //let the zod library detect the properties and types of the object
 
 type Props = {
   currentUser: User;
   onSave: (userProfileData: UserFormData) => void;
   isLoading: boolean;
+  title?: string;
+  buttonText?: string;
 };
-function UserProfileForm({ isLoading, onSave, currentUser }: Props) {
+function UserProfileForm({
+  isLoading,
+  onSave,
+  currentUser,
+  title = "User Profile",
+  buttonText = "Submit",
+}: Props) {
   const form = useForm<UserFormData>({
     //resolver to handle stuff like validation
     resolver: zodResolver(formSchema),
     defaultValues: currentUser, //auto populate the form with the current user
   });
-  const { handleSubmit,control } = form;
+  const { handleSubmit, control } = form;
   useEffect(() => {
-    form.reset(currentUser); //rerender the form when the user changes 
+    form.reset(currentUser); //rerender the form when the user changes
   }, [currentUser, form]);
   return (
     <Form {...form}>
@@ -47,10 +55,10 @@ function UserProfileForm({ isLoading, onSave, currentUser }: Props) {
         onSubmit={handleSubmit(onSave)}
         className="space-y-4 bg-gray-50 rounded-lg md:p-10"
       >
-        <h2 className="text-2xl font-bold">User Profile Form</h2>
+        <h2 className="text-2xl font-bold">{title}</h2>
         <FormDescription>Update your user profile</FormDescription>
         <FormField
-        //tell it that it's controlled by react hook form
+          //tell it that it's controlled by react hook form
           control={control}
           name="email"
           //render the form field with a callback function that takes a destructured field prop
@@ -93,19 +101,19 @@ function UserProfileForm({ isLoading, onSave, currentUser }: Props) {
               </FormItem>
             )}
           />
-         <FormField 
-         name="city"
-         control = {control}
-         render = {({field}) => (
-          <FormItem>
-            <FormLabel>City</FormLabel>
-            <FormControl>
-              <Input {...field} className="bg-white" />
-              </FormControl>
-            <FormMessage />
-          </FormItem>
-         )}
-         />
+          <FormField
+            name="city"
+            control={control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>City</FormLabel>
+                <FormControl>
+                  <Input {...field} className="bg-white" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={control}
             name="country"
@@ -120,7 +128,11 @@ function UserProfileForm({ isLoading, onSave, currentUser }: Props) {
             )}
           />
         </div>
-        {isLoading ? <LoadingButton /> : <Button type="submit">Submit</Button>}
+        {isLoading ? (
+          <LoadingButton />
+        ) : (
+          <Button type="submit">{buttonText}</Button>
+        )}
       </form>
     </Form>
   );
